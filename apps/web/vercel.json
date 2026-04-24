@@ -1,0 +1,3 @@
+{
+  "buildCommand": "cd ../../packages/backend && bun x convex deploy --cmd 'cd ../../apps/web && turbo run build --filter=web...' --cmd-url-env-var-name VITE_CONVEX_URL && if [ \"$VERCEL_ENV\" = \"production\" ]; then bun x convex run convex/migrations.ts:runAll --prod; fi"
+}

@@ -1,0 +1,15 @@
+_generated
+.nitro/
+.output/
+.pnpm-store/
+.tanstack/
+.turbo/
+.vinxi/
+*.gen.ts
+bun.lock
+coverage/
+dist/
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
