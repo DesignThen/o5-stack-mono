@@ -28,6 +28,16 @@ Explore the repo and fill your context window with relevant information that wil
 
 Complete the task.
 
+# VALIDATION
+
+All validation steps must pass before you continue.
+
+You must resolve each issue without modifying
+
+1. `bun run check` to expose any remaining typescript errors. Typecheck must pass without cheap tricks like type casting.
+2. `bun run lint` to expose unresolved eslint issues.
+3. `bun run test` to ensure your code passes tests. Tests must pass without changing the test.
+
 # COMMIT
 
 Make a git commit. The commit message must:
@@ -39,6 +49,8 @@ Make a git commit. The commit message must:
 5. Blockers or notes for next iteration
 
 Keep it concise.
+
+Git hooks should pass if you correctly validated the code.
 
 # THE ISSUE
 

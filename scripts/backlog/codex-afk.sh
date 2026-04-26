@@ -21,13 +21,10 @@ for ((i=1; i<=$1; i++)); do
 
   echo "Running iteration $i..."
 
-  codex \
-    --full-auto \
+  codex exec\
+    --yolo \
     -C "$(pwd)" \
-    "$issues Previous RALPH commits: $ralph_commits @scripts/backlog/prompt.md" \
-  | grep --line-buffered '^{' \
-  | tee "$tmpfile" \
-  | jq --unbuffered -rj "$stream_text"
+    "$issues Previous RALPH commits: $ralph_commits @scripts/backlog/prompt.md"
 
   result=$(jq -r "$final_result" "$tmpfile")
 
@@ -36,5 +33,3 @@ for ((i=1; i<=$1; i++)); do
     exit 0
   fi
 done
-
-codex -a never exec -C "$(pwd)" -s workspace-write "Install @fontsource-variable/figtree into this project"
