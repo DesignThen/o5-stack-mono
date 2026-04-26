@@ -1,13 +1,12 @@
 import * as Boundary from "@/components/global/app-boundary";
-import { defineBreadcrumb } from "@/lib/router-breadcrumbs";
 import * as authState from "@/lib/server/auth-state";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-const coreRoute = createFileRoute("/_core")({
+export const Route = createFileRoute("/_core")({
   staticData: {
     breadcrumb: {
       label: "Dashboard",
-      visible: true,
+      visible: false,
       linkOptions: { to: "/" },
     },
   },
@@ -20,14 +19,4 @@ const coreRoute = createFileRoute("/_core")({
     await authState.isUser({ data: { redirectTo: "/" } });
   },
   notFoundComponent: (props) => <Boundary.DefaultNotFound {...props} />,
-});
-
-export const Route = coreRoute.update({
-  staticData: {
-    breadcrumb: defineBreadcrumb({
-      label: "Dashboard",
-      visible: true,
-      linkOptions: { to: "/" },
-    }),
-  },
 });

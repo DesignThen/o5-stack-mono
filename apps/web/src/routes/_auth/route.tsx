@@ -8,7 +8,7 @@ const authRoute = createFileRoute("/_auth")({
   staticData: {
     breadcrumb: {
       label: "Auth",
-      visible: true,
+      visible: false,
       linkOptions: { to: "/" },
     },
   },
@@ -27,7 +27,7 @@ export const Route = authRoute.update({
   staticData: {
     breadcrumb: defineBreadcrumb({
       label: "Auth",
-      visible: true,
+      visible: false,
       linkOptions: { to: "/sign-in/$", search: { redirect: undefined } },
     }),
   },
