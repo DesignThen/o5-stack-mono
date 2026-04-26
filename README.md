@@ -14,17 +14,9 @@ The web runtime env and Convex runtime env are intentionally separate. Web app v
 
 Convex setup happens from the backend package. Run the Convex CLI for `packages/backend` to create or connect a deployment.
 
-This should add its required environment variables into `packages/backend/.env.local`.
+> This should add its required environment variables into `packages/backend/.env.local`. You can also remove these values, and run the CLI again to set up or connect to a new instance.
 
-```env
-CONVEX_DEPLOYMENT="
-VITE_CONVEX_SITE_URL="
-VITE_CONVEX_URL="
-```
-
-You can also remove these values, and run the CLI again to set up or connect to a new instance.
-
-Copy the generated Convex client values into `apps/web/.env.local`:
+Copy the generated Convex client values into `apps/web/.env.local` - You will need to prepend `VITE_`:
 
 ```env
 VITE_CONVEX_SITE_URL="
@@ -45,18 +37,12 @@ Auth requires your Convex CLI to be authenticated, and access to the [Clerk dash
 
 Log in to your [Clerk dashboard](https://dashboard.clerk.com/apps), select an application, and navigate to `Configure > Developers > Integrations`.
 
-Enable the Convex integration, and follow the setup steps. This should enable a custom JWT template, which you can save without any other changes.
+Enable the Convex integration, and select `Manage Integration`. Follow the setup steps to connect Clerk to Convex. This should enable a custom JWT template, which you can save without any other changes.
 
 Take the provided `CLERK_FRONTEND_API_URL` value and set it as `CLERK_JWT_ISSUER_DOMAIN` in Convex.
 
 ```sh
 bun x convex env set CLERK_JWT_ISSUER_DOMAIN "value"
-```
-
-For local development, also add it to `packages/backend/.env.local`:
-
-```env
-CLERK_JWT_ISSUER_DOMAIN="
 ```
 
 #### Convex Webhooks
@@ -67,7 +53,7 @@ Your webhook endpoint will use this and append `/clerk-event`. For example `http
 
 Log in to your [Clerk dashboard](https://dashboard.clerk.com/apps), select an application, and navigate to `Configure > Developers > Webhooks`.
 
-Create a new Webhook endpoint with the following:
+Create a new Webhook **Endpoint** with the following:
 
 ```
 Endpoint URL: https://your-domain-123.convex.site/clerk-event
