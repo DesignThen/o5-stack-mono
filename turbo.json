@@ -4,6 +4,17 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": [
+        "VITE_CLERK_PUBLISHABLE_KEY",
+        "VITE_CONVEX_SITE_URL",
+        "VITE_CONVEX_URL",
+        "VITE_POSTHOG_HOST",
+        "VITE_POSTHOG_KEY",
+        "VITE_SENTRY_DSN",
+        "VITE_SENTRY_ORG",
+        "VITE_SENTRY_PROJECT"
+      ],
+      "passThroughEnv": ["CLERK_SECRET_KEY", "SENTRY_AUTH_TOKEN"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".output/**"]
     },
