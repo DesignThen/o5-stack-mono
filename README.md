@@ -1,5 +1,9 @@
 # O5 Stack App
 
+```
+npx tiged DesignThen/o5-stack-mono PROJECT_NAME
+```
+
 ## Decisions
 
 Convex is the backend for this project.
