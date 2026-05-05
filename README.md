@@ -43,7 +43,10 @@ From the [Clerk dashboard](https://dashboard.clerk.com/apps) select an applicati
 - [ ] Navigate to `Configure > Developers > Integrations` to enable the Convex integration. Select `Manage Integration` and Follow the setup steps to connect Clerk to your Convex instance.
 - [ ] Take the provided `CLERK_FRONTEND_API_URL` value and save it in Convex as `CLERK_JWT_ISSUER_DOMAIN`.
 
-> You can set Convex env variables via the dashboard, or the CLI with `npx convex env set CLERK_JWT_ISSUER_DOMAIN "frontend_api_url_value"`.
+```sh
+# You can set Convex env variables via the dashboard, or the CLI with
+npx convex env set CLERK_JWT_ISSUER_DOMAIN "frontend_api_url_value"
+```
 
 #### 2 - Connect Clerk Webhooks to Convex
 
@@ -53,7 +56,17 @@ From the [Clerk dashboard](https://dashboard.clerk.com/apps) select an applicati
 Still in the [Clerk dashboard](https://dashboard.clerk.com/apps)
 
 - [ ] Navigate to `Configure > Developers > Webhooks`
-- [ ] Create a new Webhook **Endpoint** with the following:
+- [ ] Create a new Webhook **Endpoint** with the `organization` and `organizationMembership` and `user` webhook events:
+- [ ] Take the provided `Signing Secret` value and save it in Convex as `CLERK_WEBHOOK_SECRET`.
+
+```sh
+# You can set Convex env variables via the dashboard, or the CLI with
+npx convex env set CLERK_WEBHOOK_SECRET "signing_secret_value"
+```
+
+##### Webhook Events
+
+Subscribe to the following events in Clerk. 
 
 ```
 Endpoint URL: https://your-domain-123.convex.site/clerk-event
@@ -71,10 +84,6 @@ Subscribe to events:
    - [x] user.deleted
    - [x] user.updated
 ```
-
-- [ ] Take the provided `Signing Secret` value and save it in Convex as `CLERK_WEBHOOK_SECRET`.
-
-> You can set Convex env variables via the dashboard, or the CLI with `npx convex env set CLERK_WEBHOOK_SECRET "signing_secret_value"`.
 
 ### Sentry
 
