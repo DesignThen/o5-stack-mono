@@ -9,7 +9,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@clerk/shared": "^4.8.6",
 		"convex": "^1.38.0"
 	},
 	"devDependencies": {

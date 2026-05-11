@@ -24,13 +24,12 @@
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.3.0",
 		"@tanstack/eslint-config": "^0.4.0",
-		"@turbo/gen": "^2.9.12",
+		"typescript": "^6.0.3",
 		"@types/node": "^25.6.2",
 		"@types/react": "^19.2.10",
 		"@types/react-dom": "^19.2.3",
 		"eslint": "^10.3.0",
-		"tailwindcss": "^4.3.0",
-		"typescript": "^6.0.3"
+		"tailwindcss": "^4.3.0"
 	},
 	"exports": {
 		"./globals.css": "./src/styles/globals.css",

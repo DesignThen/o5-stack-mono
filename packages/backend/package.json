@@ -13,10 +13,10 @@
 		"@clerk/backend": "^3.4.7",
 		"@convex-dev/migrations": "^0.3.4",
 		"@repo/domain": "workspace:*",
+		"zod": "^4.4.3",
 		"@t3-oss/env-core": "^0.13.11",
 		"convex": "^1.38.0",
-		"svix": "^1.93.0",
-		"zod": "^4.4.3"
+		"svix": "^1.93.0"
 	},
 	"devDependencies": {
 		"typescript": "6.0.3"
