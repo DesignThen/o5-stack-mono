@@ -1,28 +1,29 @@
 {
-  "name": "@repo/backend",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "convex dev",
-    "migrate": "convex run convex/migrations.ts:runAll",
-    "setup": "convex dev --until-success",
-    "typecheck": "tsc --noEmit -p convex",
-    "typegen": "convex codegen"
-  },
-  "dependencies": {
-    "@clerk/backend": "^3.4.7",
-    "@convex-dev/migrations": "^0.3.4",
-    "@t3-oss/env-core": "^0.13.11",
-    "convex": "^1.38.0",
-    "svix": "^1.93.0",
-    "zod": "^4.4.3"
-  },
-  "devDependencies": {
-    "typescript": "6.0.3"
-  },
-  "main": "convex/_generated/api.js",
-  "types": "convex/_generated/api.d.ts",
-  "exports": {
-    "./*": "./*.js"
-  }
+	"name": "@repo/backend",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "convex dev",
+		"migrate": "convex run convex/migrations.ts:runAll",
+		"setup": "convex dev --until-success",
+		"typecheck": "tsc --noEmit -p convex",
+		"typegen": "convex codegen"
+	},
+	"dependencies": {
+		"@clerk/backend": "^3.4.7",
+		"@convex-dev/migrations": "^0.3.4",
+		"@repo/domain": "workspace:*",
+		"@t3-oss/env-core": "^0.13.11",
+		"convex": "^1.38.0",
+		"svix": "^1.93.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"typescript": "6.0.3"
+	},
+	"main": "convex/_generated/api.js",
+	"types": "convex/_generated/api.d.ts",
+	"exports": {
+		"./*": "./*.js"
+	}
 }
