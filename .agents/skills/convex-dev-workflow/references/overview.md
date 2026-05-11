@@ -74,50 +74,50 @@ import { components } from "./_generated/api";
 export const workflow = new WorkflowManager(components.workflow);
 
 export const userOnboarding = workflow.define({
-  args: {
-    userId: v.id("users"),
-  },
-  handler: async (step, args): Promise<void> => {
-    let result = await step.runAction(
-      internal.llm.generateCustomContent,
-      { userId: args.userId },
-      // Retry this on transient errors with the default retry policy.
-      { retry: true },
-    );
-    while (result.requiresRefinement) {
-      // Run a whole workflow as a single step.
-      result = await step.runWorkflow(internal.llm.refineContentWorkflow, {
-        userId: args.userId,
-        currentResult: result,
-      });
-    }
-    const email = await step.runMutation(
-      internal.emails.sendWelcomeEmail,
-      { userId: args.userId, content: result.content },
-      // Optimization: run the mutation synchronously from this transaction.
-      { inline: true },
-    );
+	args: {
+		userId: v.id("users"),
+	},
+	handler: async (step, args): Promise<void> => {
+		let result = await step.runAction(
+			internal.llm.generateCustomContent,
+			{ userId: args.userId },
+			// Retry this on transient errors with the default retry policy.
+			{ retry: true },
+		);
+		while (result.requiresRefinement) {
+			// Run a whole workflow as a single step.
+			result = await step.runWorkflow(internal.llm.refineContentWorkflow, {
+				userId: args.userId,
+				currentResult: result,
+			});
+		}
+		const email = await step.runMutation(
+			internal.emails.sendWelcomeEmail,
+			{ userId: args.userId, content: result.content },
+			// Optimization: run the mutation synchronously from this transaction.
+			{ inline: true },
+		);
 
-    if (email.status === "needsVerification") {
-      // Waits until verification is completed asynchronously.
-      await step.awaitEvent({ name: "emailHasBeenVerified" });
-    }
+		if (email.status === "needsVerification") {
+			// Waits until verification is completed asynchronously.
+			await step.awaitEvent({ name: "emailHasBeenVerified" });
+		}
 
-    // Wait 3 days before starting follow-ups.
-    const DAY = 24 * 60 * 60 * 1000;
-    await step.sleep(3 * DAY);
+		// Wait 3 days before starting follow-ups.
+		const DAY = 24 * 60 * 60 * 1000;
+		await step.sleep(3 * DAY);
 
-    for (let i = 0; i < 3; i++) {
-      const sendTime = await getNextBestEmailTime(step, args.userId);
-      const status = await step.runMutation(
-        internal.emails.sendFollowUpEmailMaybe,
-        { userId: args.userId },
-        // Waits until this time to run this step.
-        { runAt: sendTime },
-      );
-      if (!status.ok) break;
-    }
-  },
+		for (let i = 0; i < 3; i++) {
+			const sendTime = await getNextBestEmailTime(step, args.userId);
+			const status = await step.runMutation(
+				internal.emails.sendFollowUpEmailMaybe,
+				{ userId: args.userId },
+				// Waits until this time to run this step.
+				{ runAt: sendTime },
+			);
+			if (!status.ok) break;
+		}
+	},
 });
 ```
 
@@ -183,34 +183,34 @@ Note: To help avoid type cycles, always annotate the return type of the
 
 ```ts
 export const exampleWorkflow = workflow.define({
-  args: { exampleArg: v.string() },
-  returns: v.string(),
-  handler: async (step, args): Promise<string> => {
-    //                         ^ Specify the return type of the handler
-    const queryResult = await step.runQuery(
-      internal.example.exampleQuery,
-      args,
-    );
-    const actionResult = await step.runAction(
-      internal.example.exampleAction,
-      { queryResult }, // pass in results from previous steps!
-    );
-    return actionResult;
-  },
+	args: { exampleArg: v.string() },
+	returns: v.string(),
+	handler: async (step, args): Promise<string> => {
+		//                         ^ Specify the return type of the handler
+		const queryResult = await step.runQuery(
+			internal.example.exampleQuery,
+			args,
+		);
+		const actionResult = await step.runAction(
+			internal.example.exampleAction,
+			{ queryResult }, // pass in results from previous steps!
+		);
+		return actionResult;
+	},
 });
 
 export const exampleQuery = internalQuery({
-  args: { exampleArg: v.string() },
-  handler: async (ctx, args) => {
-    return `The query says... Hi ${args.exampleArg}!`;
-  },
+	args: { exampleArg: v.string() },
+	handler: async (ctx, args) => {
+		return `The query says... Hi ${args.exampleArg}!`;
+	},
 });
 
 export const exampleAction = internalAction({
-  args: { queryResult: v.string() },
-  handler: async (ctx, args) => {
-    return args.queryResult + " The action says... Hi back!";
-  },
+	args: { queryResult: v.string() },
+	handler: async (ctx, args) => {
+		return args.queryResult + " The action says... Hi back!";
+	},
 });
 ```
 
@@ -221,13 +221,13 @@ Once you've defined a workflow, you can start it from a mutation or action using
 
 ```ts
 export const kickoffWorkflow = mutation({
-  handler: async (ctx) => {
-    const workflowId = await workflow.start(
-      ctx,
-      internal.example.exampleWorkflow,
-      { exampleArg: "James" },
-    );
-  },
+	handler: async (ctx) => {
+		const workflowId = await workflow.start(
+			ctx,
+			internal.example.exampleWorkflow,
+			{ exampleArg: "James" },
+		);
+	},
 });
 ```
 
@@ -251,37 +251,37 @@ import { vWorkflowId } from "@convex-dev/workflow";
 import { vResultValidator } from "@convex-dev/workpool";
 
 export const foo = mutation({
-  handler: async (ctx) => {
-    const name = "James";
-    const workflowId = await workflow.start(
-      ctx,
-      internal.example.exampleWorkflow,
-      { name },
-      {
-        onComplete: internal.example.handleOnComplete,
-        context: name, // can be anything
-      },
-    );
-  },
+	handler: async (ctx) => {
+		const name = "James";
+		const workflowId = await workflow.start(
+			ctx,
+			internal.example.exampleWorkflow,
+			{ name },
+			{
+				onComplete: internal.example.handleOnComplete,
+				context: name, // can be anything
+			},
+		);
+	},
 });
 
 export const handleOnComplete = mutation({
-  args: {
-    workflowId: vWorkflowId,
-    result: vResultValidator,
-    context: v.any(), // used to pass through data from the start site.
-  },
-  handler: async (ctx, args) => {
-    const name = (args.context as { name: string }).name;
-    if (args.result.kind === "success") {
-      const text = args.result.returnValue;
-      console.log(`${name} result: ${text}`);
-    } else if (args.result.kind === "error") {
-      console.error("Workflow failed", args.result.error);
-    } else if (args.result.kind === "canceled") {
-      console.log("Workflow canceled", args.context);
-    }
-  },
+	args: {
+		workflowId: vWorkflowId,
+		result: vResultValidator,
+		context: v.any(), // used to pass through data from the start site.
+	},
+	handler: async (ctx, args) => {
+		const name = (args.context as { name: string }).name;
+		if (args.result.kind === "success") {
+			const text = args.result.returnValue;
+			console.log(`${name} result: ${text}`);
+		} else if (args.result.kind === "error") {
+			console.error("Workflow failed", args.result.error);
+		} else if (args.result.kind === "canceled") {
+			console.log("Workflow canceled", args.context);
+		}
+	},
 });
 ```
 
@@ -292,13 +292,13 @@ You can run steps in parallel by calling `step.runAction()` multiple times in a
 
 ```ts
 export const exampleWorkflow = workflow.define({
-  args: { name: v.string() },
-  handler: async (step, args): Promise<void> => {
-    const [result1, result2] = await Promise.all([
-      step.runAction(internal.example.myAction, args),
-      step.runAction(internal.example.myAction, args),
-    ]);
-  },
+	args: { name: v.string() },
+	handler: async (step, args): Promise<void> => {
+		const [result1, result2] = await Promise.all([
+			step.runAction(internal.example.myAction, args),
+			step.runAction(internal.example.myAction, args),
+		]);
+	},
 });
 ```
 
@@ -422,13 +422,13 @@ of links instead of one link per workflow.
 
 ```ts
 const workflow = new WorkflowManager(components.workflow, {
-  workpoolOptions: {
-    // Note: You must only set this to one value per `components.<name>`!
-    // You can set different values if you "use" multiple instances
-    // with unique names in convex.config.ts.
-    // Tip: use an environment variable for dynamic control
-    maxParallelism: 10,
-  },
+	workpoolOptions: {
+		// Note: You must only set this to one value per `components.<name>`!
+		// You can set different values if you "use" multiple instances
+		// with unique names in convex.config.ts.
+		// Tip: use an environment variable for dynamic control
+		maxParallelism: 10,
+	},
 });
 ```
 
@@ -441,20 +441,20 @@ transaction by passing `{ inline: true }`:
 
 ```ts
 export const myWorkflow = workflow.define({
-  args: { userId: v.id("users") },
-  handler: async (step, args): Promise<string> => {
-    const user = await step.runQuery(
-      internal.example.getUser,
-      { userId: args.userId },
-      { inline: true },
-    );
-    const updated = await step.runMutation(
-      internal.example.updateUser,
-      { userId: args.userId, name: user.name + "!" },
-      { inline: true },
-    );
-    return updated;
-  },
+	args: { userId: v.id("users") },
+	handler: async (step, args): Promise<string> => {
+		const user = await step.runQuery(
+			internal.example.getUser,
+			{ userId: args.userId },
+			{ inline: true },
+		);
+		const updated = await step.runMutation(
+			internal.example.updateUser,
+			{ userId: args.userId, name: user.name + "!" },
+			{ inline: true },
+		);
+		return updated;
+	},
 });
 ```
 
@@ -495,17 +495,17 @@ finish executing.
 
 ```ts
 export const kickoffWorkflow = action({
-  handler: async (ctx) => {
-    const workflowId = await workflow.start(
-      ctx,
-      internal.example.exampleWorkflow,
-      { name: "James" },
-    );
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+	handler: async (ctx) => {
+		const workflowId = await workflow.start(
+			ctx,
+			internal.example.exampleWorkflow,
+			{ name: "James" },
+		);
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Cancel the workflow after 1 second.
-    await workflow.cancel(ctx, workflowId);
-  },
+		// Cancel the workflow after 1 second.
+		await workflow.cancel(ctx, workflowId);
+	},
 });
 ```
 
@@ -535,7 +535,7 @@ await workflow.restart(ctx, workflowId, { from: "eventName" });
 
 // Restart from a step by function reference
 await workflow.restart(ctx, workflowId, {
-  from: internal.example.myAction,
+	from: internal.example.myAction,
 });
 ```
 
@@ -563,26 +563,26 @@ the system.
 
 ```ts
 export const kickoffWorkflow = action({
-  handler: async (ctx) => {
-    const workflowId = await workflow.start(
-      ctx,
-      internal.example.exampleWorkflow,
-      { name: "James" },
-    );
-    try {
-      while (true) {
-        const status = await workflow.status(ctx, workflowId);
-        if (status.type === "inProgress") {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          continue;
-        }
-        console.log("Workflow completed with status:", status);
-        break;
-      }
-    } finally {
-      await workflow.cleanup(ctx, workflowId);
-    }
-  },
+	handler: async (ctx) => {
+		const workflowId = await workflow.start(
+			ctx,
+			internal.example.exampleWorkflow,
+			{ name: "James" },
+		);
+		try {
+			while (true) {
+				const status = await workflow.status(ctx, workflowId);
+				if (status.type === "inProgress") {
+					await new Promise((resolve) => setTimeout(resolve, 1000));
+					continue;
+				}
+				console.log("Workflow completed with status:", status);
+				break;
+			}
+		} finally {
+			await workflow.cleanup(ctx, workflowId);
+		}
+	},
 });
 ```
 
@@ -603,10 +603,10 @@ later if it waited on an event or a `sleep`).
 
 ```ts
 export const exampleWorkflow = workflow.define({
-  args: { name: v.string() },
-  handler: async (step, args): Promise<void> => {
-    await step.runAction(internal.example.foo, args, { name: "some action" });
-  },
+	args: { name: v.string() },
+	handler: async (step, args): Promise<void> => {
+		await step.runAction(internal.example.foo, args, { name: "some action" });
+	},
 });
 ```
 
@@ -632,8 +632,8 @@ will continue immediately if one was already sent. Events are sent by calling
 
 ```ts
 await workflow.sendEvent(ctx, {
-  name: "eventName",
-  workflowId,
+	name: "eventName",
+	workflowId,
 });
 ```
 
@@ -669,8 +669,8 @@ share it between the workflow and the sender:
 
 ```ts
 const approvalEvent = defineEvent({
-  name: "approval",
-  validator: v.object({ approved: v.boolean() }),
+	name: "approval",
+	validator: v.object({ approved: v.boolean() }),
 });
 
 // In the workflow:
@@ -692,8 +692,8 @@ You can also dynamically create an event with `createEvent`:
 
 ```ts
 const eventId = await workflow.createEvent(ctx, {
-  name: "userResponse",
-  workflowId,
+	name: "userResponse",
+	workflowId,
 });
 ```
 

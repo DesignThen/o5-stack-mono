@@ -143,16 +143,16 @@ Create the `ConvexReactClient` at module scope, not inside a component:
 ```tsx
 // Bad: re-creates the client on every render
 function App() {
-  const convex = new ConvexReactClient(
-    import.meta.env.VITE_CONVEX_URL as string,
-  );
-  return <ConvexProvider client={convex}>...</ConvexProvider>;
+	const convex = new ConvexReactClient(
+		import.meta.env.VITE_CONVEX_URL as string,
+	);
+	return <ConvexProvider client={convex}>...</ConvexProvider>;
 }
 
 // Good: created once at module scope
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 function App() {
-  return <ConvexProvider client={convex}>...</ConvexProvider>;
+	return <ConvexProvider client={convex}>...</ConvexProvider>;
 }
 ```
 
@@ -168,11 +168,11 @@ import App from "./App";
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ConvexProvider client={convex}>
-      <App />
-    </ConvexProvider>
-  </StrictMode>,
+	<StrictMode>
+		<ConvexProvider client={convex}>
+			<App />
+		</ConvexProvider>
+	</StrictMode>,
 );
 ```
 
@@ -188,7 +188,7 @@ import { ReactNode } from "react";
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
-  return <ConvexProvider client={convex}>{children}</ConvexProvider>;
+	return <ConvexProvider client={convex}>{children}</ConvexProvider>;
 }
 ```
 
@@ -197,17 +197,17 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body>
+				<ConvexClientProvider>{children}</ConvexClientProvider>
+			</body>
+		</html>
+	);
 }
 ```
 
@@ -266,10 +266,10 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  tasks: defineTable({
-    text: v.string(),
-    completed: v.boolean(),
-  }),
+	tasks: defineTable({
+		text: v.string(),
+		completed: v.boolean(),
+	}),
 });
 ```
 
@@ -280,17 +280,17 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 export const list = query({
-  args: {},
-  handler: async (ctx) => {
-    return await ctx.db.query("tasks").collect();
-  },
+	args: {},
+	handler: async (ctx) => {
+		return await ctx.db.query("tasks").collect();
+	},
 });
 
 export const create = mutation({
-  args: { text: v.string() },
-  handler: async (ctx, args) => {
-    await ctx.db.insert("tasks", { text: args.text, completed: false });
-  },
+	args: { text: v.string() },
+	handler: async (ctx, args) => {
+		await ctx.db.insert("tasks", { text: args.text, completed: false });
+	},
 });
 ```
 
@@ -301,17 +301,17 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 
 function Tasks() {
-  const tasks = useQuery(api.tasks.list);
-  const create = useMutation(api.tasks.create);
+	const tasks = useQuery(api.tasks.list);
+	const create = useMutation(api.tasks.create);
 
-  return (
-    <div>
-      <button onClick={() => create({ text: "New task" })}>Add</button>
-      {tasks?.map((t) => (
-        <div key={t._id}>{t.text}</div>
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={() => create({ text: "New task" })}>Add</button>
+			{tasks?.map((t) => (
+				<div key={t._id}>{t.text}</div>
+			))}
+		</div>
+	);
 }
 ```
 

@@ -9,6 +9,6 @@ export const migrations = new Migrations<DataModel>(components.migrations);
 const allMigrations: MigrationFunctionReference[] = [];
 
 export const runAll =
-  allMigrations.length > 0
-    ? migrations.runner(allMigrations)
-    : internalMutation({ args: {}, handler: async () => {} });
+	allMigrations.length > 0
+		? migrations.runner(allMigrations)
+		: internalMutation({ args: {}, handler: async () => {} });

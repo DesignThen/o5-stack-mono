@@ -8,9 +8,9 @@ const http = httpRouter();
 
 // define the webhook route
 http.route({
-  path: "/clerk-event",
-  method: "POST",
-  handler: handleClerkWebhook,
+	path: "/clerk-event",
+	method: "POST",
+	handler: handleClerkWebhook,
 });
 
 export default http;

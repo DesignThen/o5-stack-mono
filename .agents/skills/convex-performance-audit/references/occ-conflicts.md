@@ -48,9 +48,9 @@ const mine = allTasks.filter((t) => t.ownerId === userId);
 ```ts
 // Good: indexed query touches only relevant documents
 const mine = await ctx.db
-  .query("tasks")
-  .withIndex("by_owner", (q) => q.eq("ownerId", userId))
-  .collect();
+	.query("tasks")
+	.withIndex("by_owner", (q) => q.eq("ownerId", userId))
+	.collect();
 ```
 
 ### 2. Split hot documents
@@ -81,9 +81,9 @@ If a mutation does primary work plus secondary bookkeeping (analytics, non-criti
 // Bad: canonical write and derived work happen in the same transaction
 await ctx.db.patch(userId, { name: args.name });
 await ctx.db.insert("userUpdateAnalytics", {
-  userId,
-  kind: "name_changed",
-  name: args.name,
+	userId,
+	kind: "name_changed",
+	name: args.name,
 });
 ```
 
@@ -91,8 +91,8 @@ await ctx.db.insert("userUpdateAnalytics", {
 // Good: keep the primary write small, defer the analytics work
 await ctx.db.patch(userId, { name: args.name });
 await ctx.scheduler.runAfter(0, internal.users.recordNameChangeAnalytics, {
-  userId,
-  name: args.name,
+	userId,
+	name: args.name,
 });
 ```
 

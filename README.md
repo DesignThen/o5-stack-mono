@@ -66,7 +66,7 @@ npx convex env set CLERK_WEBHOOK_SECRET "signing_secret_value"
 
 ##### Webhook Events
 
-Subscribe to the following events in Clerk. 
+Subscribe to the following events in Clerk.
 
 ```
 Endpoint URL: https://your-domain-123.convex.site/clerk-event
