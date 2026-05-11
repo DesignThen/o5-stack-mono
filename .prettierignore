@@ -1,6 +1,7 @@
-_generated
+_generated/
 .nitro/
 .output/
+.vercel/
 .pnpm-store/
 .tanstack/
 .turbo/

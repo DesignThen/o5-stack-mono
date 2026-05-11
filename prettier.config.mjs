@@ -2,20 +2,21 @@
 
 /** @type {import('prettier').Config} */
 const config = {
-  endOfLine: "lf",
-  trailingComma: "all",
+	endOfLine: "lf",
+	trailingComma: "all",
+	useTabs: true,
 
-  plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
-  tailwindStylesheet: "packages/ui/src/styles/globals.css",
-  tailwindFunctions: ["cn", "cva"],
-  overrides: [
-    {
-      files: ["*.json", "*.jsonc"],
-      options: {
-        trailingComma: "none",
-      },
-    },
-  ],
+	plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
+	tailwindStylesheet: "packages/ui/src/styles/globals.css",
+	tailwindFunctions: ["cn", "cva"],
+	overrides: [
+		{
+			files: ["*.json", "*.jsonc"],
+			options: {
+				trailingComma: "none",
+			},
+		},
+	],
 };
 
 export default config;

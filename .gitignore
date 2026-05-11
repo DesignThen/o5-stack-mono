@@ -12,6 +12,9 @@ node_modules
 
 # Testing
 coverage
+apps/web/playwright/.clerk/
+apps/web/playwright-report/
+apps/web/test-results/
 
 # Turbo
 .turbo
