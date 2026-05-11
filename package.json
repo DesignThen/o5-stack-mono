@@ -16,7 +16,11 @@
     "test": "turbo test",
     "prepare": "husky",
     "postinstall": "./scripts/setup-agents.sh",
-    "ralph": "./scripts/backlog/codex-afk.sh 50"
+    "ralph": "./scripts/backlog/codex-afk.sh 50",
+    "audit:health": "bun x fallow health --complexity",
+    "audit:dupes": "bun x fallow dupes",
+    "audit:prune": "bun x fallow dead-code",
+    "audit:fix": "bun x fallow fix && bun run format"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
@@ -24,8 +28,8 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "^0.7.3",
-    "turbo": "^2.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "turbo": "^2.9.12",
     "typescript": "6.0.3"
   },
   "packageManager": "bun@1.3.0",
