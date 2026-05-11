@@ -4,6 +4,11 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".output/**", ".vercel/output/**"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
       "env": [
         "VITE_CLERK_PUBLISHABLE_KEY",
         "VITE_CONVEX_SITE_URL",
@@ -14,9 +19,13 @@
         "VITE_SENTRY_ORG",
         "VITE_SENTRY_PROJECT"
       ],
-      "passThroughEnv": ["CLERK_SECRET_KEY", "SENTRY_AUTH_TOKEN"],
+      "passThroughEnv": [
+        "CLERK_SECRET_KEY",
+        "SENTRY_AUTH_TOKEN",
+        "CONVEX_DEPLOY_KEY"
+      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".output/**"]
+      "outputs": [".output/**", ".vercel/output/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
