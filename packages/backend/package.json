@@ -19,7 +19,8 @@
 		"svix": "^1.93.0"
 	},
 	"devDependencies": {
-		"typescript": "6.0.3"
+		"@typescript/native": "npm:typescript@^7.0.2",
+		"typescript": "npm:@typescript/typescript6@^6.0.2"
 	},
 	"main": "convex/_generated/api.js",
 	"types": "convex/_generated/api.d.ts",
