@@ -1,0 +1,24 @@
+{
+	"name": "@repo/constants",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"lint": "eslint --fix",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"lucide-react": "^1.14.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.1.18",
+		"@tanstack/eslint-config": "^0.4.0",
+		"@types/node": "^25.1.0",
+		"eslint": "^10.3.0",
+		"typescript": "^5.9.3"
+	},
+	"exports": {
+		"./*": "./src/*.ts"
+	}
+}

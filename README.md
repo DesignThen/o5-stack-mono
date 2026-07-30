@@ -1,6 +1,7 @@
 # O5 Stack
 
 ```sh
+# Clones this repo with a fresh .git directory
 npx tiged DesignThen/o5-stack-mono PROJECT_NAME
 ```
 

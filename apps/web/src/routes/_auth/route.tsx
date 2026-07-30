@@ -1,7 +1,7 @@
 import * as Boundary from "@/components/global/app-boundary";
-import { COMPANY } from "@/lib/constants";
 import { defineBreadcrumb } from "@/lib/router-breadcrumbs";
 import * as authState from "@/lib/server/auth-state";
+import { COMPANY } from "@repo/constants/app";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 const authRoute = createFileRoute("/_auth")({

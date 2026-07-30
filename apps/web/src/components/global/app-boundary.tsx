@@ -206,7 +206,11 @@ export const DefaultNotFound: NotFoundRouteComponent = ({ data, ...props }) => {
 				technicalDetails={technicalDetails}
 			>
 				<ButtonGroup>
-					<Button variant="outline" render={<Link to="/" />}>
+					<Button
+						variant="outline"
+						render={<Link to="/" />}
+						nativeButton={false}
+					>
 						<InboxIcon /> Inbox
 					</Button>
 				</ButtonGroup>

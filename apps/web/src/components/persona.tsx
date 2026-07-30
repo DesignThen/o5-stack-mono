@@ -1,5 +1,5 @@
 "use client";
-import { COMPANY } from "@/lib/constants";
+import { COMPANY } from "@repo/constants/app";
 import {
 	Avatar,
 	AvatarFallback,

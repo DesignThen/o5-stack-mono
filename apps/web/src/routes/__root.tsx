@@ -1,10 +1,10 @@
 import * as Boundary from "@/components/global/app-boundary";
 import { AppLayout } from "@/components/global/app-layout";
 import { AppProviders } from "@/components/global/app-providers";
-import { COMPANY } from "@/lib/constants";
 import { defineBreadcrumb } from "@/lib/router-breadcrumbs";
 import { auth } from "@clerk/tanstack-react-start/server";
 import type { ConvexQueryClient } from "@convex-dev/react-query";
+import { COMPANY } from "@repo/constants/app";
 import { themeScript } from "@repo/ui/hooks/use-theme";
 import appCss from "@repo/ui/styles/globals.css?url";
 import { TanStackDevtools } from "@tanstack/react-devtools";
