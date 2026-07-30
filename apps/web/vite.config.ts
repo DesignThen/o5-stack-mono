@@ -18,6 +18,24 @@ const config = defineConfig(({ mode }) => {
 
 	return {
 		build: {
+			rolldownOptions: {
+				output: {
+					codeSplitting: {
+						groups: [
+							{
+								name: "sentry",
+								test: /[\\/]node_modules[\\/]@sentry[\\/]/,
+								priority: 20,
+							},
+							{
+								name: "posthog",
+								test: /[\\/]node_modules[\\/](?:@posthog[\\/]|posthog-js[\\/])/,
+								priority: 20,
+							},
+						],
+					},
+				},
+			},
 			sourcemap: "hidden",
 		},
 		nitro: {
@@ -34,20 +52,20 @@ const config = defineConfig(({ mode }) => {
 			tanstackStart(),
 			viteReact(),
 
-			sentryTanstackStart({
-				org: env.VITE_SENTRY_ORG,
-				project: env.VITE_SENTRY_PROJECT,
-				authToken: env.SENTRY_AUTH_TOKEN,
-				sourcemaps: {
-					disable: shouldUploadSourcemaps ? false : "disable-upload",
-				},
-				errorHandler: (error) => {
-					console.warn(
-						"[sentry-vite-plugin] Sentry release/source map upload failed; continuing build without uploaded source maps.",
-					);
-					console.warn(error);
-				},
-			}),
+			shouldUploadSourcemaps &&
+				sentryTanstackStart({
+					org: env.VITE_SENTRY_ORG,
+					project: env.VITE_SENTRY_PROJECT,
+					authToken: env.SENTRY_AUTH_TOKEN,
+					autoInstrumentMiddleware: false,
+					telemetry: false,
+					errorHandler: (error) => {
+						console.warn(
+							"[sentry-vite-plugin] Sentry release/source map upload failed; continuing build without uploaded source maps.",
+						);
+						console.warn(error);
+					},
+				}),
 		],
 	};
 });

@@ -10,7 +10,7 @@ const inputSchema = z
 	.optional();
 
 export const isUser = createServerFn()
-	.inputValidator(inputSchema)
+	.validator(inputSchema)
 	.handler(async ({ data }) => {
 		const { isAuthenticated, userId } = await auth();
 
