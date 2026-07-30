@@ -2,10 +2,6 @@
 	"name": "o5-stack-mono",
 	"version": "0.0.1",
 	"private": true,
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
 	"scripts": {
 		"build": "turbo build",
 		"dev": "turbo dev",
@@ -17,13 +13,14 @@
 		"prepare": "husky",
 		"postinstall": "./scripts/setup-agents.sh",
 		"ralph": "./scripts/backlog/codex-afk.sh 50",
-		"audit:health": "bun x fallow health --complexity",
-		"audit:dupes": "bun x fallow dupes",
-		"audit:prune": "bun x fallow dead-code",
-		"audit:fix": "bun x fallow fix && bun run format"
+		"audit:health": "fallow health --complexity",
+		"audit:dupes": "fallow dupes",
+		"audit:prune": "fallow dead-code",
+		"audit:fix": "fallow fix && pnpm run format"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^16.3.2",
+		"fallow": "^3.10.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^16.4.0",
 		"prettier": "^3.8.3",
@@ -32,8 +29,9 @@
 		"turbo": "^2.9.12",
 		"typescript": "6.0.3"
 	},
-	"packageManager": "bun@1.3.0",
+	"packageManager": "pnpm@10.34.5",
 	"engines": {
-		"node": ">=20"
+		"node": ">=20",
+		"pnpm": "10.34.5"
 	}
 }

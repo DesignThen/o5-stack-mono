@@ -32,6 +32,7 @@ dist-ssr
 
 # Debug
 npm-debug.log*
+pnpm-debug.log*
 
 # Misc
 .DS_Store

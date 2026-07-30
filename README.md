@@ -2,7 +2,7 @@
 
 ```sh
 # Clones this repo with a fresh .git directory
-npx tiged DesignThen/o5-stack-mono PROJECT_NAME
+pnpm dlx tiged DesignThen/o5-stack-mono PROJECT_NAME
 ```
 
 ## Decisions
@@ -15,13 +15,13 @@ The web runtime env and Convex runtime env are intentionally separate. Web app v
 
 ## Setup
 
-> This setup assumes you have bun configured on your machine and have run `bun install` from the root of this repository.
+> This setup assumes you have Corepack enabled and have run `pnpm install` from the root of this repository.
 
 ### Convex
 
 Convex setup happens from the backend package.
 
-- [ ] Run `cd ./packages/backend && bun run dev` to create or connect a deployment.
+- [ ] Run `pnpm --dir ./packages/backend dev` to create or connect a deployment.
 - [ ] Copy the generated Convex client values into `apps/web/.env.local` - You will need to prepend `VITE_`:
 
 ```env
@@ -50,7 +50,7 @@ From the [Clerk dashboard](https://dashboard.clerk.com/apps) select an applicati
 
 ```sh
 # You can set Convex env variables via the dashboard, or the CLI with
-npx convex env set CLERK_JWT_ISSUER_DOMAIN "frontend_api_url_value"
+pnpm --dir ./packages/backend exec convex env set CLERK_JWT_ISSUER_DOMAIN "frontend_api_url_value"
 ```
 
 #### 2 - Connect Clerk Webhooks to Convex
@@ -66,7 +66,7 @@ Still in the [Clerk dashboard](https://dashboard.clerk.com/apps)
 
 ```sh
 # You can set Convex env variables via the dashboard, or the CLI with
-npx convex env set CLERK_WEBHOOK_SECRET "signing_secret_value"
+pnpm --dir ./packages/backend exec convex env set CLERK_WEBHOOK_SECRET "signing_secret_value"
 ```
 
 ##### Webhook Events

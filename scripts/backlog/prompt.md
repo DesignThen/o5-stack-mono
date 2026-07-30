@@ -34,9 +34,9 @@ All validation steps must pass before you continue.
 
 You must resolve each issue without modifying
 
-1. `bun run check` to expose any remaining typescript errors. Typecheck must pass without cheap tricks like type casting.
-2. `bun run lint` to expose unresolved eslint issues.
-3. `bun run test` to ensure your code passes tests. Tests must pass without changing the test.
+1. `pnpm run check` to expose any remaining typescript errors. Typecheck must pass without cheap tricks like type casting.
+2. `pnpm run lint` to expose unresolved eslint issues.
+3. `pnpm run test` to ensure your code passes tests. Tests must pass without changing the test.
 
 # COMMIT
 

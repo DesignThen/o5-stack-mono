@@ -22,7 +22,7 @@ export const workspaceConfig = (workspaceDir) => ({
 	"*.{ts,tsx,js,jsx,mjs,cjs}": [
 		"prettier --write",
 		(files) =>
-			`bun run --cwd ${quote(workspacePath(workspaceDir))} lint -- ${relativeToWorkspace(
+			`pnpm --dir ${quote(workspacePath(workspaceDir))} run lint -- ${relativeToWorkspace(
 				workspaceDir,
 				files,
 			)}`,
