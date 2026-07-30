@@ -14,8 +14,8 @@
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.1.18",
 		"@tanstack/eslint-config": "^0.4.0",
+		"@types/node": "^26.1.2",
 		"@typescript/native": "npm:typescript@^7.0.2",
-		"@types/node": "^25.1.0",
 		"eslint": "^10.3.0",
 		"typescript": "npm:@typescript/typescript6@^6.0.2"
 	},

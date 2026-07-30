@@ -24,10 +24,10 @@
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.3.0",
 		"@tanstack/eslint-config": "^0.4.0",
-		"@typescript/native": "npm:typescript@^7.0.2",
-		"@types/node": "^25.6.2",
+		"@types/node": "^26.1.2",
 		"@types/react": "^19.2.10",
 		"@types/react-dom": "^19.2.3",
+		"@typescript/native": "npm:typescript@^7.0.2",
 		"eslint": "^10.3.0",
 		"tailwindcss": "^4.3.0",
 		"typescript": "npm:@typescript/typescript6@^6.0.2"
