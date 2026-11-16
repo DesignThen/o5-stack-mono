@@ -23,6 +23,14 @@ Dependency installs enforce a 48-hour release cooldown. Security overrides in `p
 
 The shadcn build-time CLI currently brings in an unpatched low-severity [deepmerge advisory](https://github.com/advisories/GHSA-gcqx-w48m-w2h4). It is a development dependency; the application only imports its CSS, which is bundled at build time. Recheck `pnpm audit` when updating shadcn.
 
+Before running `pnpm dev`, create the web environment file:
+
+```sh
+cp apps/web/.env.example apps/web/.env.local
+```
+
+Fill in the four required Clerk and Convex values using the steps below. Leave optional integration values empty. Running `pnpm dev` before setup finishes causes the web process to exit and interrupts the Convex setup prompt.
+
 ### Convex
 
 Convex setup happens from the backend package.
@@ -31,8 +39,8 @@ Convex setup happens from the backend package.
 - [ ] Copy the generated Convex client values into `apps/web/.env.local` - You will need to prepend `VITE_`:
 
 ```env
-VITE_CONVEX_SITE_URL="
-VITE_CONVEX_URL="
+VITE_CONVEX_SITE_URL="https://your-deployment.convex.site"
+VITE_CONVEX_URL="https://your-deployment.convex.cloud"
 ```
 
 > This should add its required environment variables into `packages/backend/.env.local`. You can also remove these values, and run the CLI again to set up or connect to a new instance.
@@ -95,6 +103,8 @@ Subscribe to events:
    - [x] user.deleted
    - [x] user.updated
 ```
+
+Once Convex and Clerk are configured, stop the standalone backend dev process and run `pnpm dev` from the repository root.
 
 ### Sentry
 
