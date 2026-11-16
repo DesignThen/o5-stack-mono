@@ -17,6 +17,12 @@ The web runtime env and Convex runtime env are intentionally separate. Web app v
 
 > This setup assumes you have Corepack enabled and have run `pnpm install` from the root of this repository.
 
+Use pnpm 10.34.9 and Node 22.22.2+, 24.15.0+, or 26+ (the supported ranges are enforced in `package.json`).
+
+Dependency installs enforce a 48-hour release cooldown. Security overrides in `pnpm-workspace.yaml` keep Hono, Seroval, and minimatch on patched versions while upstream packages still allow vulnerable releases. Run `pnpm check`, `pnpm test`, `pnpm lint`, and `pnpm build` after updates.
+
+The shadcn build-time CLI currently brings in an unpatched low-severity [deepmerge advisory](https://github.com/advisories/GHSA-gcqx-w48m-w2h4). It is a development dependency; the application only imports its CSS, which is bundled at build time. Recheck `pnpm audit` when updating shadcn.
+
 ### Convex
 
 Convex setup happens from the backend package.

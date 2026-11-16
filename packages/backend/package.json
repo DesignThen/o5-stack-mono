@@ -7,20 +7,23 @@
 		"migrate": "convex run convex/migrations.ts:runAll",
 		"setup": "convex dev --until-success",
 		"typecheck": "tsc --noEmit -p convex",
-		"typegen": "convex codegen"
+		"typegen": "convex codegen",
+		"test": "vitest run"
 	},
 	"dependencies": {
-		"@clerk/backend": "^3.4.7",
-		"@convex-dev/migrations": "^0.3.4",
+		"@clerk/backend": "^3.27.0",
+		"@convex-dev/migrations": "^0.3.7",
 		"@repo/domain": "workspace:*",
-		"zod": "^4.4.3",
 		"@t3-oss/env-core": "^0.13.11",
-		"convex": "^1.38.0",
-		"svix": "^1.93.0"
+		"convex": "^1.49.0",
+		"svix": "^2.10.0",
+		"zod": "^4.6.7"
 	},
 	"devDependencies": {
+		"@types/node": "^26.6.6",
 		"@typescript/native": "npm:typescript@^7.0.2",
-		"typescript": "npm:@typescript/typescript6@^6.0.2"
+		"typescript": "npm:@typescript/typescript6@^6.0.2",
+		"vitest": "^5.1.0"
 	},
 	"main": "convex/_generated/api.js",
 	"types": "convex/_generated/api.d.ts",

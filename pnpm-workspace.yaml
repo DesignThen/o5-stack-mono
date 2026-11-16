@@ -4,6 +4,14 @@ packages:
 
 strictDepBuilds: true
 
+minimumReleaseAge: 2880
+minimumReleaseAgeStrict: true
+
+overrides:
+  hono@<4.13.11: ^4.13.11
+  seroval@<1.6.10: ^1.6.10
+  minimatch@>=7.0.0 <11.0.1: ^11.0.1
+
 allowBuilds:
   "@sentry/cli": true
   bufferutil: false

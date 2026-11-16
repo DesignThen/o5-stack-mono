@@ -43,9 +43,16 @@ export function getRouter() {
 		Sentry.init({
 			dsn: env.VITE_SENTRY_DSN,
 
-			// Adds request headers and IP for users, for more info visit:
-			// https://docs.sentry.io/platforms/javascript/guides/tanstackstart-react/configuration/options/#sendDefaultPii
-			sendDefaultPii: true,
+			// Preserve user context without enabling the additional Sentry 11 data categories.
+			dataCollection: {
+				userInfo: true,
+				httpBodies: [],
+				graphQL: { document: false, variables: false },
+				genAI: { inputs: false, outputs: false },
+				mcp: { inputs: false, outputs: false },
+				databaseQueryData: false,
+				queues: false,
+			},
 
 			integrations: [
 				Sentry.tanstackRouterBrowserTracingIntegration(router),
@@ -62,9 +69,6 @@ export function getRouter() {
 			// plus for 100% of sessions with an error.
 			replaysSessionSampleRate: 0.1,
 			replaysOnErrorSampleRate: 1.0,
-
-			// Enable logs to be sent to Sentry
-			enableLogs: true,
 		});
 	}
 

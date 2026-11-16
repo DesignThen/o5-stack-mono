@@ -160,8 +160,8 @@ function SharedPageLayout({
 
 export const DefaultError: ErrorRouteComponent = ({ error, reset, info }) => {
 	const context = {
-		name: error.name,
-		message: error.message,
+		name: error instanceof globalThis.Error ? error.name : "Error",
+		message: error instanceof globalThis.Error ? error.message : String(error),
 		info,
 	};
 

@@ -10,20 +10,22 @@
 
 import type * as clerk from "../clerk.js";
 import type * as http from "../http.js";
+import type * as lib_clerkWebhook from "../lib/clerkWebhook.js";
 import type * as lib_env from "../lib/env.js";
 import type * as migrations from "../migrations.js";
 
 import type {
-  ApiFromModules,
-  FilterApi,
-  FunctionReference,
+	ApiFromModules,
+	FilterApi,
+	FunctionReference,
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  clerk: typeof clerk;
-  http: typeof http;
-  "lib/env": typeof lib_env;
-  migrations: typeof migrations;
+	clerk: typeof clerk;
+	http: typeof http;
+	"lib/clerkWebhook": typeof lib_clerkWebhook;
+	"lib/env": typeof lib_env;
+	migrations: typeof migrations;
 }>;
 
 /**
@@ -35,8 +37,8 @@ declare const fullApi: ApiFromModules<{
  * ```
  */
 export declare const api: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "public">
+	typeof fullApi,
+	FunctionReference<any, "public">
 >;
 
 /**
@@ -48,10 +50,10 @@ export declare const api: FilterApi<
  * ```
  */
 export declare const internal: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "internal">
+	typeof fullApi,
+	FunctionReference<any, "internal">
 >;
 
 export declare const components: {
-  migrations: import("@convex-dev/migrations/_generated/component.js").ComponentApi<"migrations">;
+	migrations: import("@convex-dev/migrations/_generated/component.js").ComponentApi<"migrations">;
 };
